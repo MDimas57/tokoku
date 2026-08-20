@@ -13,6 +13,7 @@ createInertiaApp({
     layout: (name) => {
         switch (true) {
             case name === 'welcome':
+               case name.startsWith('Public/'): // <--- TAMBAHKAN BARIS INI (Halaman publik tanpa layout admin)
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;
