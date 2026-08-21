@@ -56,7 +56,7 @@ export default function Header({ search, setSearch, handleSearch, cartCount: pro
     }, []);
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 h-[64px] bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+       <header className="sticky top-0 z-50 w-full h-[64px] bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
             {/* Logo & Brand */}
             <Link href="/" className="flex items-center gap-2">
                 <div className="w-9 h-9 rounded-xl bg-[#1e1b4b] text-[#67e8f9] flex items-center justify-center font-black text-lg shadow-xs">
