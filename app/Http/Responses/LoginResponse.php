@@ -23,6 +23,6 @@ class LoginResponse implements LoginResponseContract
         }
 
         // Untuk user/pembeli biasa
-        return redirect()->intended('/dashboard');
+        return redirect()->intended('/');
     }
 }

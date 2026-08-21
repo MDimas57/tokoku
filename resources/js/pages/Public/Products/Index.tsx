@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react';
+import Header from '@/components/Header';
 import { Head, Link, router } from '@inertiajs/react';
 import { 
     FiSmartphone, 
@@ -125,78 +126,25 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                 `}</style>
             </Head>
 
-            {/* HEADER ATAS - DIBUAT FIXED AGAR TIDAK MENGGANGGU SCROLL SIDEBAR */}
-            <header className="fixed top-0 left-0 right-0 z-50 h-[64px] bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-                {/* Logo / Nama Web */}
-                <Link href="/" className="flex items-center gap-2">
-                    <div className="w-9 h-9 rounded-xl bg-[#1e1b4b] text-[#67e8f9] flex items-center justify-center font-black text-lg shadow-xs">
-                        T
-                    </div>
-                    <div>
-                        <span className="text-lg font-black tracking-tight text-[#1e1b4b] block leading-none">
-                            TOKOKU<span className="text-cyan-500">.</span>
-                        </span>
-                        <span className="text-[10px] font-medium text-gray-400 block -mt-0.5">
-                            Store Layout
-                        </span>
-                    </div>
-                </Link>
+            {/* HEADER ATAS COMPONENT */}
+            <Header 
+                search={search} 
+                setSearch={setSearch} 
+                handleSearch={handleSearch} 
+                cartCount={cartCount} 
+            />
 
-                {/* Form Pencarian Cepat */}
-                <form onSubmit={handleSearch} className="hidden md:flex items-center relative w-1/3">
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Cari produk impianmu..."
-                        className="w-full bg-gray-50 border border-gray-200/80 rounded-full py-2 pl-10 pr-4 text-xs focus:outline-none focus:border-indigo-500 focus:bg-white transition-all"
-                    />
-                    <FiSearch className="w-4 h-4 text-gray-400 absolute left-3.5" />
-                </form>
-
-                {/* Akses Kanan: Keranjang & Akun */}
-                <div className="flex items-center gap-3">
-                    {/* Ikon Keranjang */}
-                    <Link
-                        href="#"
-                        className="relative p-2.5 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors flex items-center justify-center group"
-                    >
-                        <FiShoppingCart className="w-5 h-5 group-hover:text-[#1e1b4b] transition-colors" />
-                        {cartCount > 0 && (
-                            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white shadow-xs">
-                                {cartCount}
-                            </span>
-                        )}
-                    </Link>
-
-                    {/* Ikon Akun / Profil */}
-                    <Link
-                        href="/login"
-                        className="flex items-center gap-2 p-1.5 pr-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors border border-gray-100"
-                    >
-                        <div className="w-7 h-7 rounded-full bg-[#1e1b4b] text-white flex items-center justify-center text-xs font-bold">
-                            <FiUser className="w-4 h-4" />
-                        </div>
-                        <span className="text-xs font-semibold text-gray-700 hidden sm:inline">
-                            Akun Saya
-                        </span>
-                    </Link>
-                </div>
-            </header>
-
-            {/* BODY CONTAINER (SIDEBAR & MAIN CONTENT) - DIBERI MARGIN TOP SESUAI TINGGI HEADER */}
+            {/* BODY CONTAINER */}
             <div className="pt-[64px] flex flex-col lg:flex-row items-start min-h-screen w-full">
                 
-                {/* SIDEBAR KATEGORI (DIJAMIN TOTALLY STICKY & TIDAK BERGERAK) */}
+                {/* SIDEBAR KATEGORI */}
                 <aside className="w-full lg:w-72 bg-white border-r border-gray-100 flex-shrink-0 p-6 lg:sticky lg:top-[64px] lg:h-[calc(100vh-64px)] flex flex-col justify-between">
                     <div className="flex flex-col h-full overflow-hidden">
-                        {/* Header Sidebar */}
                         <div className="mb-6 flex-shrink-0">
                             <h2 className="text-lg font-bold text-[#1e1b4b]">Categories</h2>
                             <p className="text-xs text-gray-400 mt-0.5">Browse by department</p>
                         </div>
 
-                        {/* Navigasi Kategori (Scroll Internal) */}
                         <nav className="space-y-1.5 overflow-y-auto flex-1 pr-1 custom-scrollbar">
                             <button
                                 type="button"
@@ -238,8 +186,6 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                     
                     {/* Banners Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        
-                        {/* Hero Card Utama */}
                         <div className="md:col-span-2 relative rounded-3xl overflow-hidden min-h-[360px] bg-slate-900 group flex flex-col justify-between p-8 text-white shadow-xs">
                             <img
                                 src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?q=80&w=1000&auto=format&fit=crop"
@@ -273,7 +219,6 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                             </div>
                         </div>
 
-                        {/* Stacked Banner Kanan */}
                         <div className="grid grid-rows-2 gap-6">
                             <div className="relative rounded-3xl overflow-hidden p-6 bg-slate-100 flex flex-col justify-between group shadow-xs">
                                 <img
@@ -303,10 +248,9 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    {/* MODERN BLENDED LOGO CAROUSEL */}
+                    {/* BRAND CAROUSEL */}
                     <div className="relative py-2 overflow-hidden my-2">
                         <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#f8f9fe] via-[#f8f9fe]/80 to-transparent z-10 pointer-events-none" />
                         <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#f8f9fe] via-[#f8f9fe]/80 to-transparent z-10 pointer-events-none" />
@@ -328,7 +272,7 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                         </div>
                     </div>
 
-                    {/* Section Trending Now */}
+                    {/* SECTION TRENDING NOW */}
                     <section>
                         <div className="flex items-end justify-between mb-6">
                             <div>
@@ -340,7 +284,7 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                             </Link>
                         </div>
 
-                        {/* Product Grid */}
+                        {/* PRODUCT GRID */}
                         {products.data.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {products.data.map((product) => (
@@ -348,6 +292,7 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                                         key={product.id}
                                         className="bg-white rounded-3xl p-4 shadow-xs border border-gray-100 flex flex-col justify-between group hover:shadow-md transition-all duration-300 relative"
                                     >
+                                        {/* Wrapper Gambar & Link */}
                                         <div className="aspect-square bg-gray-50 rounded-2xl relative overflow-hidden mb-4">
                                             {product.discount && (
                                                 <span className="absolute top-3 left-3 z-10 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
@@ -355,24 +300,32 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                                                 </span>
                                             )}
 
+                                            {/* Tombol Wishlist dengan stopPropagation */}
                                             <button
                                                 type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    // Logika Wishlist di sini
+                                                }}
                                                 className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors shadow-xs"
                                             >
                                                 <FiHeart className="w-4 h-4" />
                                             </button>
 
-                                            <img
-                                                src={
-                                                    product.image
-                                                        ? `/storage/${product.image}`
-                                                        : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop'
-                                                }
-                                                alt={product.name}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                                            />
+                                            <Link href={`/products/${product.slug}`} className="block w-full h-full">
+                                                <img
+                                                    src={
+                                                        product.image
+                                                            ? `/storage/${product.image}`
+                                                            : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop'
+                                                    }
+                                                    alt={product.name}
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                                                />
+                                            </Link>
                                         </div>
 
+                                        {/* Informasi Produk */}
                                         <div className="flex-1 flex flex-col justify-between">
                                             <div>
                                                 <div className="flex items-center gap-1 text-[11px] font-semibold text-gray-500 mb-1.5">
@@ -381,9 +334,11 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                                                     <span>({product.reviews_count ?? '120'})</span>
                                                 </div>
 
-                                                <h3 className="font-bold text-xs text-gray-900 line-clamp-2 leading-snug mb-2">
-                                                    {product.name}
-                                                </h3>
+                                                <Link href={`/products/${product.slug}`} className="block group-hover:text-indigo-600 transition-colors">
+                                                    <h3 className="font-bold text-xs text-gray-900 line-clamp-2 leading-snug mb-2">
+                                                        {product.name}
+                                                    </h3>
+                                                </Link>
                                             </div>
 
                                             <div className="flex items-end justify-between pt-2">
@@ -398,8 +353,13 @@ export default function Index({ products, categories, filters, cartCount = 3 }: 
                                                     )}
                                                 </div>
 
+                                                {/* Tombol Keranjang dengan stopPropagation */}
                                                 <button
                                                     type="button"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        // Logika Tambah ke Keranjang di sini
+                                                    }}
                                                     className="w-8 h-8 rounded-full bg-[#1e1b4b] hover:bg-[#312e81] text-white flex items-center justify-center transition-transform active:scale-95 shadow-xs"
                                                 >
                                                     <FiPlus className="w-4 h-4" />

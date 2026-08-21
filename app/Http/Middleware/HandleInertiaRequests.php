@@ -42,6 +42,23 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            
+            // Menambahkan cartCount secara otomatis ke seluruh halaman
+            'cartCount' => function () use ($request) {
+                $user = $request->user();
+
+                if (!$user) {
+                    return 0;
+                }
+
+                // Pilih salah satu opsi kalkulasi di bawah ini sesuai struktur database/relasi Anda:
+
+                // Opsi A: Menghitung total jumlah kuantitas barang (misal: 2 Baju + 3 Celana = 5)
+                return $user->cartItems()->sum('quantity');
+
+                // Opsi B: Menghitung jumlah variasi barang unik (misal: 2 Baju + 3 Celana = 2 item)
+                // return $user->cartItems()->count();
+            },
         ];
     }
 }

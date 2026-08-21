@@ -51,4 +51,9 @@ class User extends Authenticatable implements PasskeyUser
     {
         return $this->role === 'admin';
     }
+    
+    public function cartItems(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }
